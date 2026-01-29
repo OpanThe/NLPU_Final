@@ -137,36 +137,37 @@ The minimum credits to obtain the said degree acknowledgement may vary from one 
 
 ### GPA Classification
 
-| Score | Score in Alphabet | GPA Scale of 4.00 |
+**GPA Grading Scale and Score Requirements:**
+
+The following shows the relationship between numerical scores, letter grades, and GPA points on a 4.00 scale:
+
+| Score Range | Letter Grade | GPA Points (4.00 Scale) |
 | :--- | :--- | :--- |
-| Score ≥ 85 | A | 4.00 |
-| 80 ≤ Score < 85 | A- | 3.67 |
-| 75 ≤ Score < 80 | B+ | 3.33 |
-| 70 ≤ Score < 75 | B | 3.00 |
-| 67 ≤ Score < 70 | B- | 2.67 |
-| 64 ≤ Score < 67 | C+ | 2.33 |
-| 60 ≤ Score < 64 | C | 2.00 |
-| 55 ≤ Score < 60 | D | 1.00 |
-| Score < 55 | E | 0.00 |
+| Score 85 or above | A | 4.00 |
+| Score 80 to 84 | A- | 3.67 |
+| Score 75 to 79 | B+ | 3.33 |
+| Score 70 to 74 | B | 3.00 |
+| Score 67 to 69 | B- | 2.67 |
+| Score 64 to 66 | C+ | 2.33 |
+| Score 60 to 63 | C | 2.00 |
+| Score 55 to 59 | D | 1.00 |
+| Score below 55 | E | 0.00 |
 
+**In plain text:**
+- A grade (4.00): Score of 85 or higher
+- A- grade (3.67): Score between 80 and 84
+- B+ grade (3.33): Score between 75 and 79
+- B grade (3.00): Score between 70 and 74
+- B- grade (2.67): Score between 67 and 69
+- C+ grade (2.33): Score between 64 and 66
+- C grade (2.00): Score between 60 and 63
+- D grade (1.00): Score between 55 and 59
+- E grade (0.00): Score below 55 (failing grade)
 
-
----
-
-### GPA Calculation
-
-| No | Subject | Credits | Grade | Grade Number | Detail (Grd. num x Cr) |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Course A | 3 | A | 4.00 | 12.00 |
-| 2 | Course B | 6 | C | 2.00 | 12.00 |
-| 3 | Course C | 1 | B- | 2.67 | 2.67 |
-| | **Total Credits →** | **10** | | **Total grd. num x cr →** | **26.67** |
-
-**Formula:**
-$$GPA = \frac{\sum(Grade\ Number \times Credits)}{\sum Credits}$$
-
-**Result based on example:** 2.67
-
+**Key Information:**
+- To get an A, you need a score of 85 or higher (4.00 GPA)
+- Grade E (0.00 GPA) is a failing grade for scores below 55
+- Minimum GPA to graduate is 2.00
 
 ---
 
