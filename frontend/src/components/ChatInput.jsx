@@ -17,7 +17,13 @@ export const ChatInput = ({ value, onChange, onSend, isLoading }) => {
   };
 
   return (
-    <div style={{ padding: '20px', borderTop: '1px solid rgba(255, 255, 255, 0.05)', backgroundColor: '#1a1f3a', background: 'linear-gradient(180deg, #1a1f3a 0%, #0d0d0d 100%)' }}>
+    <div style={{ 
+      padding: '24px', 
+      borderTop: '1px solid rgba(255, 255, 255, 0.1)', 
+      background: 'rgba(15, 12, 41, 0.8)',
+      backdropFilter: 'blur(20px)',
+      boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.3)'
+    }}>
       <div style={{ display: 'flex', gap: '12px', maxWidth: '900px', margin: '0 auto' }}>
         <textarea
           value={value}
@@ -27,20 +33,22 @@ export const ChatInput = ({ value, onChange, onSend, isLoading }) => {
           disabled={isLoading}
           style={{
             flex: 1,
-            padding: '12px 16px',
-            backgroundColor: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
-            borderRadius: '12px',
+            padding: '14px 18px',
+            background: 'rgba(255, 255, 255, 0.08)',
+            border: '1.5px solid rgba(255, 255, 255, 0.15)',
+            borderRadius: '16px',
             color: 'white',
-            fontSize: '14px',
+            fontSize: '15px',
             fontFamily: 'inherit',
             resize: 'none',
             opacity: isLoading ? 0.5 : 1,
             outline: 'none',
-            transition: 'all 0.3s ease'
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
           }}
-          onFocus={(e) => !isLoading && (e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)', e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.08)', e.target.style.boxShadow = '0 0 0 3px rgba(255, 255, 255, 0.1)')}
-          onBlur={(e) => (e.target.style.borderColor = 'rgba(255, 255, 255, 0.15)', e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.05)', e.target.style.boxShadow = 'none')}
+          onFocus={(e) => !isLoading && (e.target.style.borderColor = 'rgba(102, 126, 234, 0.6)', e.target.style.background = 'rgba(255, 255, 255, 0.12)', e.target.style.boxShadow = '0 0 0 4px rgba(102, 126, 234, 0.15), 0 8px 20px rgba(0, 0, 0, 0.3)', e.target.style.transform = 'translateY(-1px)')}
+          onBlur={(e) => (e.target.style.borderColor = 'rgba(255, 255, 255, 0.15)', e.target.style.background = 'rgba(255, 255, 255, 0.08)', e.target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)', e.target.style.transform = 'translateY(0)')}
           rows="3"
         />
         <button
@@ -48,29 +56,38 @@ export const ChatInput = ({ value, onChange, onSend, isLoading }) => {
           onClick={handleButtonClick}
           disabled={isLoading || !value.trim()}
           style={{
-            padding: '12px 20px',
-            backgroundColor: isLoading || !value.trim() ? 'rgba(100, 100, 100, 0.4)' : '#3b82f6',
+            padding: '12px 24px',
+            background: isLoading || !value.trim() 
+              ? 'rgba(100, 100, 100, 0.4)' 
+              : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             color: 'white',
             border: 'none',
-            borderRadius: '12px',
+            borderRadius: '16px',
             fontWeight: '600',
+            fontSize: '15px',
             cursor: isLoading || !value.trim() ? 'not-allowed' : 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '8px',
             opacity: isLoading || !value.trim() ? 0.6 : 1,
-            transition: 'all 0.2s ease',
-            outline: 'none'
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            outline: 'none',
+            boxShadow: isLoading || !value.trim() ? 'none' : '0 4px 15px rgba(102, 126, 234, 0.4)',
+            minWidth: '100px'
           }}
           onMouseEnter={(e) => {
             if (!isLoading && value.trim()) {
-              e.currentTarget.style.backgroundColor = '#2563eb';
+              e.currentTarget.style.background = 'linear-gradient(135deg, #764ba2 0%, #667eea 100%)';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.6)';
             }
           }}
           onMouseLeave={(e) => {
             if (!isLoading && value.trim()) {
-              e.currentTarget.style.backgroundColor = '#3b82f6';
+              e.currentTarget.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
             }
           }}
         >

@@ -21,7 +21,7 @@ export const chatAPI = {
     api.get(`/api/chat-history/${sessionId}`),
   
   clearHistory: (sessionId) =>
-    api.delete(`/api/chat-history/${sessionId}`),
+    api.delete(`/api/session/${sessionId}`),
   
   getSessions: () =>
     api.get('/api/sessions'),

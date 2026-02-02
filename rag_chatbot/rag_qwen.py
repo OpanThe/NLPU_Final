@@ -1,5 +1,5 @@
-# NLP_FINAL/rag_chatbot/rag_llama.py
-# Local LLaMA 3.2 RAG implementation using Fine-Tuned Model
+# NLP_FINAL/rag_chatbot/rag_qwen.py
+# Qwen 2.5 3B RAG implementation using Fine-Tuned Model
 import os
 import torch
 from typing import List, Dict
@@ -23,8 +23,8 @@ from peft import PeftModel
 # =========================
 # CONFIGURATION
 # =========================
-BASE_MODEL_NAME = "meta-llama/Llama-3.2-3B-Instruct"
-FINETUNED_MODEL_PATH = "./models/jarvis-llama-finetuned"
+BASE_MODEL_NAME = "Qwen/Qwen2.5-3B-Instruct"
+FINETUNED_MODEL_PATH = "./models/jarvis-qwen-finetuned"
 
 # Conversation history storage
 conversation_history: List[Dict[str, str]] = []
@@ -78,11 +78,10 @@ def build_vectorstore():
             md_chunks.append(split)
     
     # Second pass: split large sections (tables, long paragraphs)
-    # This handles content that's still too large after header splitting
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=800,  # Larger chunks for better context
-        chunk_overlap=200,
-        separators=["\n\n", "\n", "|", " ", ""]  # Table-aware ("|" for markdown tables)
+        chunk_size=1000,  # Increased from 800 for better context coverage
+        chunk_overlap=250,  # Increased overlap to capture more information
+        separators=["\n\n", "\n", "|", " ", ""]  # Table-aware
     )
     
     final_chunks = text_splitter.split_documents(md_chunks)
@@ -99,14 +98,14 @@ def build_vectorstore():
 
     return FAISS.from_documents(final_chunks, embeddings)
 
-print("🔄 Building vector store for Llama...")
+print("🔄 Building vector store for Qwen...")
 vectorstore = build_vectorstore()
 print("✅ Vector store ready.")
 
 # =========================
 # LOAD FINE-TUNED MODEL
 # =========================
-print("🔄 Loading fine-tuned Jarvis AI model...")
+print("🔄 Loading fine-tuned Jarvis AI (Qwen) model...")
 
 # Quantization config for inference (saves memory)
 bnb_config = BitsAndBytesConfig(
@@ -127,17 +126,17 @@ base_model = AutoModelForCausalLM.from_pretrained(
 
 # Load fine-tuned LoRA adapters
 model = PeftModel.from_pretrained(base_model, FINETUNED_MODEL_PATH)
-print("✅ Fine-tuned model loaded successfully!")
+print("✅ Fine-tuned Qwen model loaded successfully!")
 
-print("✅ Jarvis AI ready for questions!")
+print("✅ Jarvis AI (Qwen) ready for questions!")
 
-# Generation config - Balanced speed and quality
+# Generation config - Balanced speed and accuracy
 generation_config = {
     "max_new_tokens": 512,  # Full response length
-    "temperature": 0.3,
-    "top_p": 0.9,
-    "top_k": 40,  # Limit token candidates for faster sampling
-    "repetition_penalty": 1.1,
+    "temperature": 0.2,
+    "top_p": 0.85,
+    "top_k": 40,
+    "repetition_penalty": 1.15,
     "do_sample": True,
     "pad_token_id": tokenizer.eos_token_id
 }
@@ -165,8 +164,8 @@ def clear_history():
 # =========================
 # RAG FUNCTION
 # =========================
-def rag_llama_qa(question: str) -> str:
-    """Enhanced RAG with conversation context and Jarvis AI personality"""
+def rag_qwen_qa(question: str) -> str:
+    """Enhanced RAG with conversation context and Jarvis AI personality (Qwen 2.5)"""
     
     # Detect if this is a simple greeting or thanks (no context needed)
     question_lower = question.lower().strip()
@@ -176,20 +175,20 @@ def rag_llama_qa(question: str) -> str:
     
     # For simple greetings/thanks, skip RAG and respond directly
     if is_greeting or is_thanks or is_identity:
-        prompt_text = f"""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-
-You are Jarvis AI, a formal but friendly assistant for President University.<|eot_id|><|start_header_id|>user<|end_header_id|>
-
-{question}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
-
+        prompt_text = f"""<|im_start|>system
+You are Jarvis AI, a formal but friendly assistant for President University.<|im_end|>
+<|im_start|>user
+{question}<|im_end|>
+<|im_start|>assistant
 """
         inputs = tokenizer(prompt_text, return_tensors="pt").to(model.device)
         outputs = model.generate(**inputs, **generation_config)
         full_response = tokenizer.decode(outputs[0], skip_special_tokens=False)
         
-        if "<|start_header_id|>assistant<|end_header_id|>" in full_response:
-            answer = full_response.split("<|start_header_id|>assistant<|end_header_id|>")[-1]
-            answer = answer.split("<|eot_id|>")[0].strip()
+        # Extract assistant response
+        if "<|im_start|>assistant\n" in full_response:
+            answer = full_response.split("<|im_start|>assistant\n")[-1]
+            answer = answer.split("<|im_end|>")[0].strip()
         else:
             answer = tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
         
@@ -203,8 +202,8 @@ You are Jarvis AI, a formal but friendly assistant for President University.<|eo
         search_type="mmr",
         search_kwargs={
             "k": 3,  # Reduced from 5 - fewer docs = faster
-            "fetch_k": 8,  # Reduced from 12
-            "lambda_mult": 0.75
+            "fetch_k": 8,  # Reduced from 20 for faster search
+            "lambda_mult": 0.5  # More diversity (less redundancy)
         }
     )
     
@@ -213,69 +212,49 @@ You are Jarvis AI, a formal but friendly assistant for President University.<|eo
     if not retrieved_docs:
         return "I don't have that information in the provided documents. Please contact the university administration."
 
-    # Format context
-    context = "\n\n---\n\n".join(
-        doc.page_content
-        for doc in retrieved_docs
-    )
+    # Filter for relevance: remove very short or uninformative chunks
+    filtered_docs = [
+        doc for doc in retrieved_docs
+        if len(doc.page_content.strip()) > 100  # Stricter minimum length
+    ]
+    
+    if not filtered_docs:
+        return "I couldn't find relevant information in the documents. Please contact the relevant department."
+
+    # Format context with source attribution
+    context_parts = []
+    for i, doc in enumerate(filtered_docs, 1):
+        source = doc.metadata.get('source', 'Unknown')
+        context_parts.append(f"[Source {i}: {source}]\n{doc.page_content}")
+    
+    context = "\n\n---\n\n".join(context_parts)
     
     # Get conversation history
     chat_history = format_chat_history()
 
-    # Optimized RAG prompt - emphasize using context and citing sources
-    prompt_text = f"""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-
-You are Jarvis AI, a formal but friendly assistant for President University.<|eot_id|><|start_header_id|>user<|end_header_id|>
-
-=== CONTEXT FROM PRESIDENT UNIVERSITY DOCUMENTS ===
+    # Simplified RAG prompt (Qwen format)
+    prompt_text = f"""<|im_start|>system
+You are Jarvis AI, a helpful assistant for President University. Answer questions using ONLY the provided context. If information is not in the context, say you don't have it.<|im_end|>
+<|im_start|>user
+CONTEXT:
 {context}
 
-=== PREVIOUS CONVERSATION ===
+PREVIOUS CONVERSATION:
 {chat_history}
 
-=== USER QUESTION ===
-{question}
+QUESTION: {question}
 
-=== YOUR TASK ===
-Answer the question using ONLY the information in the CONTEXT above. Follow these rules strictly:
+INSTRUCTIONS:
+1. Answer using ONLY the context above - do NOT use general knowledge
+2. Start directly with the answer - do NOT repeat the question
+3. If the question is about another university (Harvard, Stanford, etc.), say: "I only have information about President University."
+4. If the question is unclear, ask for clarification
+5. If information is missing from context, say: "Sorry, I don't have any information about that."
+6. Keep your answers natural and conversational - avoid repeating the same phrases
+7. Include specific numbers, dates, and requirements from the context
 
-1. STAY IN SCOPE:
-   - ONLY answer questions about President University
-   - If the user mentions another university's name (Harvard, Stanford, MIT as Massachusetts Institute, Brawijaya, University of Indonesia, etc.) in their question, respond IMMEDIATELY: "I apologize, but I only have information about President University. I cannot provide details about other institutions."
-   - Do NOT try to answer questions about other universities by talking about President University instead
-   - NOTE: MIT can refer to "Massachusetts Institute of Technology" OR "Master in Informatics (MIT) at President University". If someone asks "Tell me about MIT" or "What is MIT", answer about Master in Informatics. But if they ask "MIT admission" or "apply to MIT", ask them to clarify.
-
-2. USE CONTEXT CAREFULLY:
-   - Find the MOST RELEVANT information from the context for the user's specific question
-   - If multiple types of information exist (e.g., fees for active vs non-active students, requirements for new vs transfer students), choose based on what the user is most likely asking about:
-     * "Tuition fee" → Regular active student tuition (NOT non-active/leave fees)
-     * "Admission requirements" → New undergraduate student requirements (NOT transfer/master unless specified)
-     * "Documents needed" → Essential documents for new students
-   - Quote specific details from the context
-   - If the information isn't in the context, say: "I don't have that specific information about that."
-
-3. BE CONCISE AND CLEAR:
-   - Start DIRECTLY with the answer - NEVER repeat or rephrase the user's question
-   - Do NOT say "Hello!" in every answer - only greet if the user greets you first
-   - Give direct, focused answers - avoid listing everything in the context
-   - Use bullet points or numbered lists for clarity
-   - Include specific numbers, dates, requirements from context
-   - Do NOT make up information
-   - Do NOT make assumptions or inferences beyond what's explicitly stated
-   - CRITICAL: If the question is ambiguous (e.g., "How much does it cost?" without specifying what), ask the user to clarify: "Could you please specify what cost you're asking about? For example, tuition fees, dormitory fees, or other services?"
-   - If information is not explicitly stated in context, say so: "I don't have specific information about [topic]."
-
-4. ANSWER STRUCTURE:
-   - Start with the direct answer from context
-   - Add relevant details from context
-   - If the context doesn't answer the question, use this EXACT format: "I don't have specific information about [topic] in the provided documents. Please contact [relevant department] for assistance."
-   - NEVER use phrases like: "perhaps", "might", "could be", "probably", "we could infer", "it's likely", "may follow similar"
-   - NEVER reason about what might be true based on related information
-   - Example: "The minimum GPA is 2.00"
-   - If appropriate, suggest who to contact for more information
-
-Now answer the question:<|eot_id|><|start_header_id|>assistant<|end_header_id|>
-
+Answer:<|im_end|>
+<|im_start|>assistant
 """
     
     # Tokenize and generate
@@ -286,9 +265,9 @@ Now answer the question:<|eot_id|><|start_header_id|>assistant<|end_header_id|>
     full_response = tokenizer.decode(outputs[0], skip_special_tokens=False)
     
     # Extract only the assistant's response
-    if "<|start_header_id|>assistant<|end_header_id|>" in full_response:
-        answer = full_response.split("<|start_header_id|>assistant<|end_header_id|>")[-1]
-        answer = answer.split("<|eot_id|>")[0].strip()
+    if "<|im_start|>assistant\n" in full_response:
+        answer = full_response.split("<|im_start|>assistant\n")[-1]
+        answer = answer.split("<|im_end|>")[0].strip()
     else:
         answer = tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
     
@@ -310,4 +289,4 @@ Now answer the question:<|eot_id|><|start_header_id|>assistant<|end_header_id|>
 # =========================
 def tanya(pertanyaan: str) -> str:
     """Alias for compatibility"""
-    return rag_llama_qa(pertanyaan)
+    return rag_qwen_qa(pertanyaan)

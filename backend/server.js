@@ -18,14 +18,21 @@ app.use(express.json());
 const chatHistory = {};
 let messageId = 0;
 
-// Available AI Models - Only Llama 3.2 and Gemini
+// Available AI Models - Gemini, Llama 3.2, and Qwen 2.5
 const AVAILABLE_MODELS = [
   {
     id: 'llama',
-    name: 'Llama 3.2',
+    name: 'Llama 3.2 3B',
     provider: 'local',
-    description: 'Local Ollama model - Fast & Private',
+    description: 'Fine-tuned - Fast & Private',
     icon: '🦙'
+  },
+  {
+    id: 'qwen',
+    name: 'Qwen 2.5 3B',
+    provider: 'local',
+    description: 'Fine-tuned - Best Performance',
+    icon: '💉'
   },
   {
     id: 'gemini',
@@ -108,7 +115,9 @@ app.get('/api/greeting', async (req, res) => {
       success: true,
       greeting: "Hello! I'm Jarvis AI, your friendly assistant for President University! 😊\n\nI can help you with information about the university. Here are some questions you might want to ask:",
       suggested_questions: selected,
-      source: modelType === 'gemini' ? 'Gemini 2.5 Flash' : 'Llama 3.2 (Local)'
+      source: modelType === 'gemini' ? 'Gemini 2.5 Flash' : 
+              modelType === 'qwen' ? 'Qwen 2.5 3B (Fine-tuned)' : 
+              'Llama 3.2 3B (Fine-tuned)'
     });
   }
 });
@@ -151,8 +160,14 @@ app.post('/api/chat', async (req, res) => {
     };
     chatHistory[session].push(userMessage);
 
-    // Generate AI response
-    const aiResponse = await generateAIResponse(message, model);
+    // Generate AI response with session_id
+    const response = await axios.post(`${PYTHON_BACKEND_URL}/chat`, {
+      question: message,
+      model_type: model,
+      session_id: session  // Pass session_id to backend
+    });
+    
+    const aiResponse = response.data.answer;
 
     messageId++;
     const assistantMessage = {
@@ -219,18 +234,62 @@ app.delete('/api/chat-history/:sessionId', (req, res) => {
 });
 
 // Get all sessions
-app.get('/api/sessions', (req, res) => {
-  const sessions = Object.keys(chatHistory).map(sessionId => ({
-    sessionId,
-    messageCount: chatHistory[sessionId].length,
-    lastMessage: chatHistory[sessionId][chatHistory[sessionId].length - 1]?.content || '',
-    lastTimestamp: chatHistory[sessionId][chatHistory[sessionId].length - 1]?.timestamp || null
-  }));
+app.get('/api/sessions', async (req, res) => {
+  try {
+    // Proxy to Python backend for database sessions
+    const response = await axios.get(`${PYTHON_BACKEND_URL}/sessions`);
+    res.json(response.data);
+  } catch (error) {
+    console.error('Sessions error:', error.message);
+    // Fallback to in-memory sessions
+    const sessions = Object.keys(chatHistory).map(sessionId => ({
+      sessionId,
+      messageCount: chatHistory[sessionId].length,
+      lastMessage: chatHistory[sessionId][chatHistory[sessionId].length - 1]?.content || '',
+      lastTimestamp: chatHistory[sessionId][chatHistory[sessionId].length - 1]?.timestamp || null
+    }));
 
-  res.json({
-    success: true,
-    sessions
-  });
+    res.json({
+      success: true,
+      sessions
+    });
+  }
+});
+
+// Get messages from specific session
+app.get('/api/session/:sessionId/messages', async (req, res) => {
+  try {
+    const { sessionId } = req.params;
+    // Proxy to Python backend
+    const response = await axios.get(`${PYTHON_BACKEND_URL}/session/${sessionId}/messages`);
+    res.json(response.data);
+  } catch (error) {
+    console.error('Get messages error:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch messages'
+    });
+  }
+});
+
+// Delete session
+app.delete('/api/session/:sessionId', async (req, res) => {
+  try {
+    const { sessionId } = req.params;
+    // Proxy to Python backend
+    const response = await axios.delete(`${PYTHON_BACKEND_URL}/session/${sessionId}`);
+    
+    // Also clear from in-memory cache
+    delete chatHistory[sessionId];
+    
+    res.json(response.data);
+  } catch (error) {
+    console.error('Delete session error:', error.message);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to delete session'
+    });
+  }
 });
 
 // Health check

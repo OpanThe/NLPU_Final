@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import ModelSwitcher from './ModelSwitcher';
-import ChatHistory from './ChatHistory';
+import { ChatHistory } from './ChatHistory';
 import { chatAPI } from '../utils/api';
 
 export const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [models, setModels] = useState([]);
-  const [selectedModel, setSelectedModel] = useState('gpt-4');
+  const [selectedModel, setSelectedModel] = useState('qwen'); // Default to Qwen 2.5 3B
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState(null);
   const [error, setError] = useState(null);

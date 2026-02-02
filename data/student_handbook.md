@@ -25,6 +25,8 @@ Aside of the experiences, students will also receive yearly resume reviews to el
 ### e. Value for Money
 Taking into account the wide-range of scholarships offered in President University, access to higher education is possible for all prospective students who wish to further their studies.
 
+> **Scholarship Information**: This handbook confirms scholarships EXIST at President University. However, SPECIFIC scholarship types, amounts, eligibility criteria, and application processes are NOT detailed here. Contact Admission Bureau (admission@president.ac.id) or International Office (international.office@president.ac.id) for detailed scholarship information.
+
 ---
 
 ## About President University
@@ -38,6 +40,8 @@ The institution was officially operated in 2001, offering a Bachelor of Engineer
 Although as a relatively young university, President University (PresUniv) is growing at a tremendous rate every year. There are now approximately 5,000 students attending President University from Indonesia as well as many other countries. President University has expanded its courses offerings and now offers 14 different majors in subjects ranging from Industrial Engineering to Public Relations.
 
 President University is located in Jababeka Education Park in Kota Jababeka, surrounded by Jababeka Industrial Estate with more than 1,700 national as well as multinational companies such as Unilever, Mattel, Samsung, Mulia, ICI Paints, and others. Its location also allows students to make use of world-class facilities such as the Jababeka Golf & Country Club and the President Executive Club.
+
+> **Campus Location Summary**: President University is in Jababeka Education Park, Kota Jababeka (near Cikarang area), surrounded by industrial estates. SPECIFIC transportation directions (how to get there by public transport/car) are NOT provided in this document.
 
 ### Vision and Mission
 
@@ -97,10 +101,12 @@ IMPACT is A Global Education Experience Designed for Your Success. Eeach of the 
 Experience a vibrant campus life filled with academic excellence, diverse communities, and exciting opportunities to grow, connect, and thrive.
 
 ### Facilities
+> **Available Facilities Information**: This handbook mentions: swimming pool, golf course, and campus cafés. DETAILED information about sports facilities, gym, laboratories, library facilities, or operating hours are NOT specified here.
 
 President University offers modern facilities to support student life and well-being, including access to a swimming pool, golf course, and cozy campus cafés—creating a balanced and engaging environment for learning and leisure.
 
 ### Student Life
+> **Student Activities Overview**: Student activities are organized through PUSU (student union) and CnC (Clubs and Communities). Specific activity listings, club names, and event schedules are NOT detailed in this handbook. Contact Student Affairs Bureau (studentaffairs@president.ac.id) for specific activity information.
 
 Student life at President University is vibrant and community-focused. PUSH, the university dormitory, offers a supportive living environment for students. Meanwhile, PUSU (student union) and CnC (Clubs and Communities) provide opportunities for leadership, creativity, and meaningful engagement on campus.
 
@@ -204,6 +210,10 @@ The minimum credits to obtain the said degree acknowledgement may vary from one 
 ---
 
 ##Graduation Requirements: Credits and GPA
+> **Quick Answer for Common Questions**:
+> - "What is the minimum GPA to graduate?" → 2.00 for undergraduate, 3.00 for graduate
+> - "How many credits do I need to graduate?" → 144 credits for undergraduate, 36 for graduate
+> - "Can I graduate early?" → Yes, minimum 3.5 years for undergraduate (can finish faster than 4 years)
 
 ### Undergraduate Programs (Regular and Executive)
 * Minimum credits to graduate: 144;
@@ -269,7 +279,8 @@ Based on **090/SKep-R/KMNM/XI/2019/Presuniv**, in the event that a certain lectu
 | Bureau / Office | Responsibilities | Email |
 | :--- | :--- | :--- |
 | **Finance and Accounting Bureau** | Tuition fee, installment, late payment, financial assistance, extend fee, defense fee, graduation fee, and other payment matters. | finance@president.ac.id |
-| **Academic Bureau** | Enrollments schedule, class schedule, GPA, diploma & transcript, resign, drop out, academic leave, general document request, judicium clearance. | academic@president.ac.id |
+| **Academic Bureau** | Enrollments schedule, class schedule, GPA, diploma & transcript, resign, drop out, academic leave, general document request, judicium clearance. Operating hours: Monday-Friday, 09:00-16:00. | academic@president.ac.id |
+  > **Operating Hours**: Academic Bureau operates Monday to Friday, 09:00-16:00 (Jakarta time). This is mentioned in the "Alumni" section under diploma legalization schedule.
 | **Software Development Bureau** | PUIS management and maintenance. | pu-softdev@president.ac.id |
 | **Hardware Development Bureau** | Computer laboratory, Wi-Fi, PresUniv email, hardware management and maintenance. | it_admin@president.ac.id |
 | **English Language and Literacy Center (ELLC)** | Minimum standard for English proficiency, judicium clearance, English proficiency development program, non-credits English subjects. | ellc@president.ac.id |
@@ -279,13 +290,12 @@ Based on **090/SKep-R/KMNM/XI/2019/Presuniv**, in the event that a certain lectu
 | **President Psychological Consulting** | For psychological counseling and aptitude test. | ppc@president.ac.id |
 | **International Office** | Scholarship stream, student visa, student exchange, KITAS (stay permit), other matters related to foreign students. | international.office@president.ac.id |
 | **Alumni Relations Bureau** | Alumni reunion, President University Tracer Study, alumni liaison. | alumni@president.ac.id |
-| **Admission Bureau** | Placement test, new student admission (information, documents), and judicium clearance. | admission@president.ac.id |
-| **Internship and Career Center** | Professional stream, managing professional stream and all matters regarding internship program. | icc_pu@president.ac.id |
-| **General Affairs, Sustainability, and Climate Change Office** | COVID-19 taskforce, classroom arrangement, transportation arrangement for campus events schedule. | gapresuniv@president.ac.id |
-| **President Development Center** | Languages and other supporting intensive programs. | pdc@president.ac.id |
+| **Admission Bureau** | Placement test, new student admission (information, documents), and judicium clearance. | admission@president.ac.id |  > **Admission Contact**: For NEW STUDENT admission requirements, documents, and application process, contact Admission Bureau. For CURRENT STUDENT academic matters, contact Academic Bureau.| **Internship and Career Center** | Professional stream, managing professional stream and all matters regarding internship program. | icc_pu@president.ac.id |
+| **General Affairs, Sustainability, and Climate Change Office** | COVID-19 taskforce, classroom arrangement, transportation arrangement for campus events schedule. | gapresuniv@president.ac.id |  > **Note**: This office handles transportation FOR CAMPUS EVENTS only. General directions/public transportation to campus are NOT specified in this document.| **President Development Center** | Languages and other supporting intensive programs. | pdc@president.ac.id |
 | **Entrepreneurship and Business Incubator Bureau / SetSail BizAccel** | Start-up stream and entrepreneurship incubator. | setsail@president.ac.id |
 
 ### Library Bureau Services
+> **Available Information**: This section covers library SERVICES (borrowing, clearance, research help). Library HOURS, LOCATION, and CLOSING TIME are NOT specified in this document. For such information, contact the Library Bureau directly.
 
 | Service | Description | Email |
 | :--- | :--- | :--- |
@@ -297,7 +307,8 @@ Based on **090/SKep-R/KMNM/XI/2019/Presuniv**, in the event that a certain lectu
 ### Faculty and Study Program Contacts
 
 #### Faculty of Computing
-* **Master in Informatics:** mit@president.ac.id
+* **Master in Informatics (MIT at President University - NOT Massachusetts Institute of Technology):** mit@president.ac.id
+  > **Note for AI**: When users ask about "MIT", this refers to the Master in Informatics program at President University, NOT the Massachusetts Institute of Technology in the USA.
 * **Information Technology:** informatics@president.ac.id
 * **Information System:** is@president.ac.id
 
@@ -352,6 +363,7 @@ Active attendance and full participation in English 0 Credits classes are highly
 ---
 
 ## Internship
+> **Internship Program Summary**: This is for FINAL-YEAR students. All final-year students have opportunity for internship. Students find their own placement. ICC (Internship and Career Center) coordinates this program. Contact: icc_pu@president.ac.id
 
 All final-year students in President University will be provided an opportunity to experience direct exposure to professional and business atmosphere through the Internship program in various companies/ institution of their own choosing. Students will firstly be required to find an Internship placement. During the recruitment process, some companies/ institutions might require students to provide Internship recommendation letter. Students are encouraged to access the link to fill out the required fields in the Internship recommendation letter.
 
@@ -440,6 +452,7 @@ Aside of providing Academic services, President University is determined to help
     * Other academic-wise obstacles experienced by students.
 * **Student Affairs**: For free psychological counseling services only for students, provided by a team of President University’s counselors; or
 * **President Psychological Counseling (PPC)**: Students seeking psychological assistance from professionals are encouraged to contact PPC for counseling sessions. Service fee of Rp500.000 per 1.5 hours is applicable for psychological counseling provided by PPC.
+  > **Cost Information**: Psychological counseling at PPC costs Rp500,000 per 1.5-hour session. Free counseling is available through Student Affairs Bureau.
 
 ---
 
@@ -493,6 +506,12 @@ Curriculum 2022 prevails for **students of batch 2022 from the Faculty of Comput
 
    Students who are interested to become academicians are encouraged to take this Stream to further their understanding regarding the relevant obligations for lecturers. By choosing this Stream, students will be mandated to become a teaching, research, or community service assistant. When carrying out these activities, students must be supervised by one lecturer at the very least.
 
+   > **Scholar Stream Requirements (Quick Reference)**:
+   > - Minimum PET score: 550
+   > - Minimum Cumulative GPA: 3.5
+   > - Need recommendation letter from lecturer
+   > - Must find official lecturer to partner with
+   
    In general, **students planning to take this Scholar Stream needs to obtain a minimum score of 550 in PET and Cumulative GPA of 3.5**. In addition, there are also several specific requirements that students need to take notes on:
 
    a. Requirements for research assistant:
@@ -833,7 +852,9 @@ Payment period is usually scheduled prior to every enrollment. Students are enco
 ### 3. Payment Methods
 All type of financial transaction must be transferred to the Mandiri Virtual Account number belongs to each student. The Finance and Accounting Bureau does not accept cash transaction. Mandiri Virtual Account number can be accessed by each student through their PUIS on "Student Profile" page.
 
-### 4. Billing and Payment Details
+### 4. Billing and Payment Details (Active Student Tuition Fees)
+> **Context**: This section covers REGULAR TUITION FEES for active students. For non-active student fees or academic leave fees, see the "Academic Leave" section.
+
 To check for billing and payment history, students are encouraged to follow the below steps:
 
 a. Log into your PUIS account
